@@ -20,5 +20,5 @@ data class RecipeInfo (
     val vegetarian: Boolean,
     val veryHealthy: Boolean,
     val dishTypes: List<String>,
-    val extendedIngredients: kotlin.collections.Set<Ingredient>,
+    val extendedIngredients: Set<Ingredient>,
 )
