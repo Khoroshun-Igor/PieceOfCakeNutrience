@@ -12,7 +12,7 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContent {
             PieceOfCakeNutrienceTheme {
-                PeaceOfCakeMainScreen(
+                PieceOfCakeMainScreen(
                 )
             }
         }
@@ -23,6 +23,6 @@ class MainActivity : ComponentActivity() {
 @Composable
 fun GreetingPreview() {
     PieceOfCakeNutrienceTheme {
-        PeaceOfCakeMainScreen()
+        PieceOfCakeMainScreen()
     }
 }

@@ -35,13 +35,11 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import com.example.compose.PieceOfCakeNutrienceTheme
 import com.tamago.pieceofcakenutrience.R
 import com.tamago.pieceofcakenutrience.domain.entity.Recipe
 import com.tamago.pieceofcakenutrience.domain.entity.RecipeInfo
-import com.tamago.pieceofcakenutrience.presentation.extention.MinuteToString
 
 /**
  * Created by Igor Khoroshun on 01.04.2024.
@@ -211,14 +209,7 @@ fun RecipeCard(
                 }
             }
             if(showMore){
-                Row {
-                    TimeCard(
-                        recipe.recipeInfo.readyInMinutes
-                    )
-                    TagCard(
-                        recipe.recipeInfo
-                    )
-                }
+                TODO()
             }
         }
     }
