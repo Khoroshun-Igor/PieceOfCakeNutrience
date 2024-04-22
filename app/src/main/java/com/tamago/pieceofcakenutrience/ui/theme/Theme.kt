@@ -2,9 +2,11 @@ package com.example.compose
 
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Typography
 import androidx.compose.material3.lightColorScheme
 import androidx.compose.material3.darkColorScheme
 import androidx.compose.runtime.Composable
+import com.tamago.pieceofcakenutrience.ui.theme.Typography
 
 
 private val LightColors = lightColorScheme(
@@ -85,6 +87,7 @@ fun PieceOfCakeNutrienceTheme(
 
   MaterialTheme(
     colorScheme = colors,
-    content = content
+    content = content,
+      typography = Typography
   )
 }
