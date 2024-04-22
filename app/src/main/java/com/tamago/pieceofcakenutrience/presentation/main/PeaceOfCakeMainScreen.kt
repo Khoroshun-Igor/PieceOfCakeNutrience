@@ -5,7 +5,12 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
@@ -13,11 +18,14 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.AccountCircle
 import androidx.compose.material.icons.filled.Search
 import androidx.compose.material3.DismissibleNavigationDrawer
+import androidx.compose.material3.Divider
 import androidx.compose.material3.DrawerState
 import androidx.compose.material3.DrawerValue
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.ModalNavigationDrawer
 import androidx.compose.material3.SearchBar
 import androidx.compose.material3.Text
 import androidx.compose.material3.rememberDrawerState
@@ -55,7 +63,8 @@ fun MainScreen(
         mutableStateOf(false)
     }
     var recipes = emptyList<Recipe>()
-    Box(
+    Column(
+        horizontalAlignment = Alignment.CenterHorizontally,
         modifier = modifier
             .fillMaxSize()
             .background(MaterialTheme.colorScheme.onPrimary)
@@ -68,8 +77,6 @@ fun MainScreen(
             onSearch = { active = false },
             active = active,
             onActiveChange = { active = it },
-            modifier = modifier
-                .align(Alignment.TopCenter),
             placeholder = {
                 Text(text = stringResource(R.string.search_recipe))
             },
@@ -90,9 +97,10 @@ fun MainScreen(
 }
 @Composable
 fun PieceOfCakeMainScreen(
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    drawerState: DrawerState = rememberDrawerState(DrawerValue.Closed)
 ) {
-    val drawerState: DrawerState = rememberDrawerState(DrawerValue.Closed)
+    val drawerState: DrawerState = drawerState
     val scope: CoroutineScope = rememberCoroutineScope()
     val items = listOf(
         DrawerNavigationItem.Home,
@@ -100,29 +108,59 @@ fun PieceOfCakeMainScreen(
         DrawerNavigationItem.MealPlan,
         DrawerNavigationItem.SignOut
     )
-
-    DismissibleNavigationDrawer(
+    ModalNavigationDrawer(
         drawerState = drawerState,
         drawerContent = {
-            Box(
+            Column(
                 modifier = modifier
                     .background(MaterialTheme.colorScheme.onSecondary)
-                    .fillMaxSize()
             ) {
-                Column {
-                    Row {
+                Column(
+                    modifier = modifier
+                        .width(dimensionResource(R.dimen.drawer_size))
+                        .padding(dimensionResource(R.dimen.max_padding))
+                ) {
+                    Row(
+                        verticalAlignment = Alignment.CenterVertically
+                    ) {
                         Image(
                             imageVector = Icons.Default.AccountCircle,
-                            contentDescription = stringResource(R.string.avatar)
+                            contentDescription = stringResource(R.string.avatar),
+                            modifier = modifier
+                                .padding(horizontal = dimensionResource(R.dimen.min_padding))
+                                .size(dimensionResource(R.dimen.avatar_size))
                         )
                         Text(
-                            stringResource(R.string.guest)
+                            stringResource(R.string.guest),
+                            style = MaterialTheme.typography.headlineMedium,
+                            modifier = modifier
+                                .padding(horizontal = dimensionResource(R.dimen.min_padding))
                         )
                     }
+                    HorizontalDivider(
+                        modifier = modifier
+                            .padding(dimensionResource(R.dimen.middle_padding))
+                    )
                     items.forEach { item ->
-                        Row {
-                            item.icon
-                            item.text
+                        if(item.text == R.string.sign_out){
+                            Spacer(modifier = modifier.weight(1f))
+                        }
+                        Row(
+                            verticalAlignment = Alignment.CenterVertically,
+                        ) {
+                            Icon(
+                                imageVector = item.icon,
+                                contentDescription = stringResource(id = item.text),
+                                modifier = modifier
+                                    .padding(dimensionResource(R.dimen.min_padding))
+                                    .size(dimensionResource(R.dimen.max_padding))
+                            )
+                            Text(
+                                text = stringResource(item.text),
+                                style = MaterialTheme.typography.headlineSmall,
+                                modifier = modifier
+                                    .padding(dimensionResource(R.dimen.min_padding))
+                            )
                         }
                     }
                 }
@@ -138,5 +176,13 @@ fun PieceOfCakeMainScreen(
 fun MainScreenPreview(){
     PieceOfCakeNutrienceTheme {
         PieceOfCakeMainScreen()
+    }
+}
+
+@Preview
+@Composable
+fun DrawlerPreview(){
+    PieceOfCakeNutrienceTheme {
+        PieceOfCakeMainScreen(drawerState = rememberDrawerState(DrawerValue.Open))
     }
 }

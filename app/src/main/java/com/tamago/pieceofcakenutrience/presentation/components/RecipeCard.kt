@@ -35,6 +35,7 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import com.example.compose.PieceOfCakeNutrienceTheme
 import com.tamago.pieceofcakenutrience.R
@@ -152,11 +153,16 @@ fun RecipeCard(
                     Text(
                         text = recipe.title,
                         color = MaterialTheme.colorScheme.primary,
-                        softWrap = true
+                        softWrap = true,
+                        style = MaterialTheme.typography.labelMedium
                     )
                 }
                 Spacer(modifier = modifier.weight(1f))
                 Card(
+                    modifier = modifier
+                        .padding(
+                            start = dimensionResource(R.dimen.min_padding)
+                        ),
                     colors = CardColors(
                         containerColor = MaterialTheme.colorScheme.primary,
                         contentColor = MaterialTheme.colorScheme.onPrimary,
@@ -164,18 +170,19 @@ fun RecipeCard(
                         disabledContainerColor = MaterialTheme.colorScheme.onSecondary
                     )
                 ) {
-                    Row(
-                        horizontalArrangement = Arrangement.Center,
-                        verticalAlignment = Alignment.CenterVertically,
+                    Column (
+                        horizontalAlignment = Alignment.CenterHorizontally,
                         modifier = modifier
-                            .padding(dimensionResource(R.dimen.min_padding))
-                    ) {
+                            .padding(
+                                horizontal = dimensionResource(id = R.dimen.min_padding)
+                            )
+                    ){
                         Text(
-                            text = recipe.recipeInfo.readyInMinutes.toString(),
-                        )
-                        Text(
-                            text = stringResource(R.string.minutes),
-                            style = MaterialTheme.typography.bodySmall
+                            text = recipe.recipeInfo.readyInMinutes.toString() + "\n" + stringResource(
+                                R.string.minutes
+                            ),
+                            style = MaterialTheme.typography.labelMedium,
+                            textAlign = TextAlign.Center
                         )
                     }
                 }
@@ -199,11 +206,11 @@ fun RecipeCard(
                             )
                     ) {
                         Text(
-                            text = recipe.recipeInfo.spoonacularScore.toString(),
-                        )
-                        Text(
-                            text = stringResource(R.string.score),
-                            style = MaterialTheme.typography.labelSmall
+                            text = recipe.recipeInfo.spoonacularScore.toString() + "\n" + stringResource(
+                                R.string.score
+                            ),
+                            style = MaterialTheme.typography.labelMedium,
+                            textAlign = TextAlign.Center
                         )
                     }
                 }
